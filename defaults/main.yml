@@ -7,8 +7,8 @@ influxdb_users:
   admin:
     - {username: 'admin', password: 'admin'}
   regular:
-    - {username: 'grafana', password: '_grafana'}
-    - {username: 'galaxy', password: '_galaxy'}
+    - {username: 'grafana', password: '_grafana', perms: 'ALL' }
+    - {username: 'galaxy', password: '_galaxy', perms: 'ALL' }
 
 influxdb_databases:
   - galaxy
