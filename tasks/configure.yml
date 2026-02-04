@@ -45,6 +45,17 @@
   loop: "{{ influxdb_retention_policy.databases }}"
   when: not ansible_check_mode
 
+- name: create custom retention policy
+  community.docker.docker_container_exec:
+    container: "{{ influxdb_container.name }}"
+    command: >
+      influx -username "{{ influxdb_users.admin[0].username }}" -password "{{ influxdb_users.admin[0].password }}"
+      -execute 'CREATE RETENTION POLICY {{ influxdb_custom_retention_policy.policy_name }} ON "{{ item }}" DURATION {{ influxdb_custom_retention_policy.duration }} REPLICATION {{ influxdb_custom_retention_policy.replication }} {{ influxdb_custom_retention_policy.default }}'
+  loop: "{{ influxdb_custom_retention_policy.databases }}"
+  when:
+    - not ansible_check_mode
+    - influxdb_custom_retention_policy.databases | length > 0
+
 - name: Grant {{ influxdb_users.regular[1].perms }} permissions to user {{ influxdb_users.regular[1].username }}
   community.docker.docker_container_exec:
     container: "{{ influxdb_container.name }}"
