@@ -25,6 +25,13 @@ influxdb_retention_policy:
     - galaxy
     - notifications
 
+influxdb_custom_retention_policy:
+  policy_name: custom
+  duration: 1d
+  replication: 1
+  default: "DEFAULT"
+  databases: []
+
 influxdb_data_dir: /data/monitoring/influxdb_data
 influxdb_setup: "standalone"
 
