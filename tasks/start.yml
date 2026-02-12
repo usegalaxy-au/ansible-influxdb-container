@@ -4,6 +4,7 @@
     influxdb_container_volumes: "{{ influxdb_container_standalone_setup_details.volumes|default([], true) }}"
     influxdb_container_ports: "{{ influxdb_container_standalone_setup_details.ports|default([], true) }}"
     influxdb_container_env: "{{ influxdb_container_standalone_setup_details.env|default({}, true) }}"
+    influxdb_container_ulimits: "{{ influxdb_container_standalone_setup_details.ulimits|default([], true) }}"
   when: influxdb_setup == "standalone"
 
 - name: Start a influxdb container
@@ -16,6 +17,7 @@
     volumes: "{{ influxdb_container_volumes }}"
     ports: "{{ influxdb_container_ports }}"
     env: "{{ influxdb_container_env }}"
+    ulimits: "{{ influxdb_container_ulimits }}"
 
 - name: Pause for some seconds to give time to the container to come up
   pause:
